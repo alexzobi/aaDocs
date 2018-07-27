@@ -1,10 +1,11 @@
 import React from 'react';
-import { Login } from './components';
+import { Login, Menu } from './components';
 
 const App = () => {
   return (
     <div>
-      <Login />
+      {/* <Login /> */}
+      <Menu />
     </div>
   );
 };

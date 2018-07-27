@@ -28,9 +28,7 @@ export const removeUser = () => ({ type: REMOVE_USER });
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case SET_USER: {
-      const newState = action.user;
-      console.log('new state', newState)
-      return newState;
+      return action.user;
     }
     case REMOVE_USER:
       return defaultUser;
