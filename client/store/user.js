@@ -1,9 +1,7 @@
-import axios from 'axios';
-
 /**
  * ACTION TYPES
  */
-const GET_USER = 'GET_USER';
+const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
 /**
@@ -14,20 +12,25 @@ const defaultUser = {};
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({ type: GET_USER, user });
-const removeUser = () => ({ type: REMOVE_USER });
+export const setUser = user => ({ type: SET_USER, user });
+export const removeUser = () => ({ type: REMOVE_USER });
 
 /**
  * THUNK CREATORS
  */
+
+ // If I asyncronously logging in and out users, this is where
+ // I would create the thunks using axios. 
 
 /**
  * REDUCER
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
-    case GET_USER: {
-      return action.user;
+    case SET_USER: {
+      const newState = action.user;
+      console.log('new state', newState)
+      return newState;
     }
     case REMOVE_USER:
       return defaultUser;
