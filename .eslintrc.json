@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": "fullstack",
+  "rules": {
+    "semi": [
+      1,
+      "always"
+    ],
+    "new-cap": [
+      1,
+      {
+        "capIsNewExceptions": [
+          "Router"
+        ]
+      }
+    ]
+  }
+}
