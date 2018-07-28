@@ -21,7 +21,7 @@ class Menu extends Component{
           Object.keys(docs).map((doc, idx) => {
             return (
               <li key={idx}>
-                <Link to={`/docs/${doc}`}>
+                <Link to={`/editor/${doc}`}>
                   <h3>{doc}</h3>
                 </Link>
               </li>
