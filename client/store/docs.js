@@ -25,7 +25,6 @@ export const fetchDocs = () => dispatch =>
   axios
     .get('https://aachallengeone.now.sh/read')
     .then(res => {
-      console.log('the data ', res.data)
       dispatch(getDocs(res.data || initialState))
     })
     .catch(err => console.log(err));
@@ -37,7 +36,6 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_DOCS: {
       const newState = action.docs;
-      console.log('new state', newState)
       return newState;
     }
     case ADD_DOC:

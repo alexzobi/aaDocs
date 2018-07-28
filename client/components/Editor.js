@@ -7,24 +7,30 @@ class Editor extends Component{
     this.state = {
       content: "",
       owners:[],
-      lastChangedBy: ""
+      lastChangeBy: ""
     };
   }
 
   componentDidMount(){
     const {doc} = this.props.match.params;
-    console.log('the doc', doc)
-    const {content, owners, lastChangedBy} = this.props.docs[doc];
-    this.setState({content, lastChangedBy, owners});
+    const {content, owners} = this.props.docs[doc];
+    const lastChangeBy = this.props.user;
+    this.setState({content, lastChangeBy, owners});
+  }
+
+  handleChange = evt =>{
+    const content = evt.target.value;
+    this.setState({content});
+
   }
 
   render(){
-    console.log('editor props', this.props)
-    console.log('local state', this.state)
     const { content } = this.state;
     return (
       <div>
-        <p>{content}</p>
+          <textarea 
+            value={content} 
+            onChange={this.handleChange} />
       </div>
     );
   }
