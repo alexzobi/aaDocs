@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchDocs } from '../store/docs';
 
 class Menu extends Component{
@@ -17,10 +18,12 @@ class Menu extends Component{
         <ul>
         {
           docs && 
-          docs.map(doc => {
+          Object.keys(docs).map((doc, idx) => {
             return (
-              <li key={doc.title}>
-                <h3>{doc.title}</h3>
+              <li key={idx}>
+                <Link to={`/docs/${doc}`}>
+                  <h3>{doc}</h3>
+                </Link>
               </li>
             );
           })

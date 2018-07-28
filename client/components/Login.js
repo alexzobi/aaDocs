@@ -37,10 +37,11 @@ class Login extends Component{
   }
 }
 
-const mapDispatch = dispatch =>{
+const mapDispatch = (dispatch, ownProps) =>{
   return {
     handleLogin: (username)=>{
       dispatch(setUser(username));
+      ownProps.history.push('/menu');
     }
   };
 };

@@ -9,7 +9,7 @@ const ADD_DOC = 'ADD_DOC';
 /**
  * INITIAL STATE
  */
-const initialState = [];
+const initialState = {};
 
 /**
  * ACTION CREATORS
@@ -25,18 +25,8 @@ export const fetchDocs = () => dispatch =>
   axios
     .get('https://aachallengeone.now.sh/read')
     .then(res => {
-      // the data is coming in as an object of objects. 
-      // were I to set up the back end, I would send an array
-      // of objects instead to make using the data on the 
-      // front end easier.
-      const titles = Object.keys(res.data);
-      let docs = res.data;
-      titles.forEach((title) =>{
-        docs[title].title = title;
-      });
-      console.log('the docs', docs);
-      const state = Object.values(docs);
-      return dispatch(getDocs(state || initialState));
+      console.log('the data ', res.data)
+      dispatch(getDocs(res.data || initialState))
     })
     .catch(err => console.log(err));
 

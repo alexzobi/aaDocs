@@ -1,0 +1,40 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch } from 'react-router-dom';
+import { Login, Editor, Menu } from './components';
+
+class Routes extends Component{
+
+  render(){
+    const {isLoggedIn} = this.props;
+    return (
+      <Switch>
+        {
+          // routes here are only available after 'logging in'
+          isLoggedIn && (
+            <Switch>
+              <Route path="/menu" component={Menu} />
+              <Route path="/editor/:doc" 
+                     render={({ match })=><Editor match={match}/>}
+              />
+            </Switch>
+          )
+        }
+        {/* the default route */}
+        <Route path="/" component={Login} />
+      </Switch>
+    );
+  }
+}
+
+const mapState = state =>{
+  return {
+    // this is a hack to get around the fact that I'm not
+    // actually using auth. Prevents users from going to 
+    // the editor before they've 'logged in'
+
+    isLoggedIn: !!state.user.length
+  };
+};
+
+export default withRouter(connect(mapState)(Routes));
