@@ -15,6 +15,7 @@ const initialState = {};
  * ACTION CREATORS
  */
 export const getDocs = docs => ({ type: GET_DOCS, docs });
+export const addDoc = doc => ({type: ADD_DOC, doc});
 
 /**
  * THUNK CREATORS
@@ -29,6 +30,32 @@ export const fetchDocs = () => dispatch =>
     })
     .catch(err => console.log(err));
 
+export const createDoc = (filename, issuer, history) => dispatch =>{
+  // the async request for posting a new doc
+  const content = `Document created by ${issuer}.`
+  const data={issuer, content};
+
+  return axios
+    .post(`https://aachallengeone.now.sh/update/${filename}`, data)
+    .then(res => res.data)
+    .then( data => {
+      if(data.success){
+        // updates store upon post success only
+        const doc = {
+          filename,
+          details: {
+            content,
+            owners: [issuer],
+            lastChangeBy: issuer,
+          }
+        };
+        dispatch(addDoc(doc));
+        history.push(`/editor/${filename}`);
+      }
+    })
+    .catch(err=> console.log(err));
+};
+
 /**
  * REDUCER
  */
@@ -39,7 +66,8 @@ export default function(state = initialState, action) {
       return newState;
     }
     case ADD_DOC:
-      return initialState;
+      const {filename, details} = action.doc;
+      return Object.assign({}, state, {[filename]: details});
     default:
       return state;
   }

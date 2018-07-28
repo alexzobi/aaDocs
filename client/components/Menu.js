@@ -1,20 +1,49 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchDocs } from '../store/docs';
+import { fetchDocs, createDoc } from '../store/docs';
 
 class Menu extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      newFile: false,
+      fileName: ""
+    }
+  }
 
   componentDidMount(){
     this.props.loadDocs();
   }
 
+  handleNameChange = evt =>{
+    evt.preventDefault();
+    const fileName = evt.target.value;
+    this.setState({fileName});
+  }
+
+  handleNewFile = () =>{
+    const { fileName } = this.state;
+    const { user } = this.props;
+    this.props.newDoc(fileName,user);
+  }
+
   render(){
-    const {docs} = this.props;
+    const { docs, user } = this.props;
+    const { newFile, fileName } = this.state;
     return (
       <div id='menu'>
-        <h1>Welcome, {this.props.username}</h1>
-        <button onClick={()=>console.log('new!')}>New Document</button>
+        <h1>Welcome, {user}</h1>
+        <button onClick={()=>this.setState({newFile: !newFile, fileName: ""})}>New Document</button>
+        {
+          newFile &&
+          <div>
+            <input onChange={this.handleNameChange}
+              placeholder="Document Name"
+              value={fileName} />
+            <button onClick={this.handleNewFile}>Submit</button>
+          </div>
+        }
         <ul>
         {
           docs && 
@@ -37,14 +66,17 @@ class Menu extends Component{
 const mapState = state =>{
   return {
     docs: state.docs,
-    username: state.username
+    user: state.user
   };
 };
 
-const mapDispatch = dispatch =>{
+const mapDispatch = (dispatch,ownProps) =>{
   return {
     loadDocs: ()=>{
       dispatch(fetchDocs());
+    },
+    newDoc: (filename,issuer)=>{
+      dispatch(createDoc(filename,issuer,ownProps.history));
     }
   };
 };

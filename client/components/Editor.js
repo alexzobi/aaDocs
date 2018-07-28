@@ -13,10 +13,10 @@ class Editor extends Component{
 
   componentDidMount(){
     const {doc} = this.props.match.params;
-    const {content, owners} = this.props.docs[doc];
-    const lastChangeBy = this.props.user;
+    const {content, owners, lastChangeBy} = this.props.docs[doc];
     this.setState({content, lastChangeBy, owners});
   }
+
 
   handleChange = evt =>{
     const content = evt.target.value;
