@@ -41,7 +41,7 @@ class Menu extends Component{
             <input onChange={this.handleNameChange}
               placeholder="Document Name"
               value={fileName} />
-            <button onClick={this.handleNewFile}>Submit</button>
+            <button disabled={!fileName.length} onClick={this.handleNewFile}>Submit</button>
           </div>
         }
         <ul>

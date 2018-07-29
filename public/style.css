@@ -1,0 +1,37 @@
+/* editor styling */
+
+body {
+  margin: 0
+}
+
+#editor {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: lightgray;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10vh;
+}
+
+#editor textarea {
+  background-color: white;
+  width: 60vw;
+  padding: 8vh;
+  height: calc(1.293 * 60vw);
+  border: none;
+}
+
+#editor textarea:focus {
+  outline: none;
+}
+
+#editor #toolbar {
+  display: flex;
+  background-color: whitesmoke;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  width: 200px;
+  height: 40px;
+}

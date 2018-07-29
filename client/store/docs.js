@@ -30,9 +30,33 @@ export const fetchDocs = () => dispatch =>
     })
     .catch(err => console.log(err));
 
+export const updateDoc = (filename, content, issuer) => dispatch =>{
+  return axios
+    .post(`https://aachallengeone.now.sh/update/${filename}`, {content, issuer})
+    .then(res => res.data)
+    .then( data => {
+      if(data.success){
+        // updates store upon post success only.
+        // doing it this way prevents the need for an 
+        // unnecessary fetch request to server to update
+        // store with the created doc.
+        const doc = {
+          filename,
+          details: {
+            content,
+            owners: [issuer],
+            lastChangeBy: issuer,
+          }
+        };
+        dispatch(addDoc(doc));
+      }
+    })
+    .catch(err=> console.log(err));
+}
+
 export const createDoc = (filename, issuer, history) => dispatch =>{
   // the async request for posting a new doc
-  const content = `Document created by ${issuer}.`
+  const content = `Document created by ${issuer}.`;
   const data={issuer, content};
 
   return axios
@@ -40,7 +64,10 @@ export const createDoc = (filename, issuer, history) => dispatch =>{
     .then(res => res.data)
     .then( data => {
       if(data.success){
-        // updates store upon post success only
+        // updates store upon post success only.
+        // doing it this way prevents the need for an 
+        // unnecessary fetch request to server to update
+        // store with the created doc.
         const doc = {
           filename,
           details: {
@@ -67,7 +94,8 @@ export default function(state = initialState, action) {
     }
     case ADD_DOC:
       const {filename, details} = action.doc;
-      return Object.assign({}, state, {[filename]: details});
+      const newState = Object.assign({}, state, {[filename]: details});
+      return newState;
     default:
       return state;
   }

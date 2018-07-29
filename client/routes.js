@@ -9,19 +9,23 @@ class Routes extends Component{
     const {isLoggedIn} = this.props;
     return (
       <Switch>
+        <Route path="/editor/" 
+                    render={({ match })=><Editor match={match}/>}
+              />
         {
           // routes here are only available after 'logging in'
           isLoggedIn && (
             <Switch>
+              {/* <Route path="/editor/:doc" 
+                    render={({ match })=><Editor match={match}/>}
+              /> */}
               <Route path="/menu" component={Menu} />
-              <Route path="/editor/:doc" 
-                     render={({ match })=><Editor match={match}/>}
-              />
             </Switch>
           )
         }
+
         {/* the default route */}
-        <Route path="/" component={Login} />
+        <Route exact path="*" component={Login} />
       </Switch>
     );
   }
