@@ -9,7 +9,9 @@ class Editor extends Component{
     this.state = {
       content: "",
       owners:[],
-      lastChangeBy: ""
+      lastChangeBy: "",
+      charCount: 0,
+      lastSaved: new Date().toLocaleString()
     };
   }
 
@@ -22,34 +24,53 @@ class Editor extends Component{
       .then( res => res.data)
       .then(data =>{
         const {content, owners, lastChangeBy} = data;
-        this.setState({content, lastChangeBy, owners});
+        const charCount = content.length;
+        this.setState({content, lastChangeBy, owners, charCount});
       })
-      .catch(err =>console.error(err));
+      .catch(err =>console.error(err)); 
+    this.refs.textarea.addEventListener('input', this.handleChange);
+  }
+
+  componentWillUnmount(){
+    this.refs.textarea.removeEventListener('input', this.handleChange);
   }
 
 
   handleChange = evt =>{
-    const content = evt.target.value;
-    this.setState({content});
-
+    evt.preventDefault();
+    const content = evt.target.innerHTML;
+    const charCount = content.length;
+    this.setState({content, charCount});
+    if(charCount%50===0){
+      this.handleSave();
+    }
   }
 
   handleSave = () =>{
     const { content } = this.state;
     const { user } = this.props;
+    const regex = new Regex('/[<script>].*[<\/script>]*/','gm');
+    if(content.search(regex)>=0){
+      content = "no hacking please.";
+    }
     this.props.saveDoc(content, user);
+    this.setState({lastSaved: new Date().toLocaleString()});
   }
 
   render(){
-    const { content } = this.state;
+    const { content, lastSaved } = this.state;
+    console.log(content);
     return (
       <div id="editor">
-        <div id="toolbar" >
+        <div id="toolbar">
           <button id="save" onClick={this.handleSave}>Save</button>
+          <p>{`Last Save: ${lastSaved}`}</p>
         </div>
-        <textarea
-          value={content} 
-          onChange={this.handleChange} />
+        <div id="textarea" 
+          ref="textarea" 
+          contentEditable
+          dangerouslySetInnerHTML={{__html:content}}
+          />
       </div>
     );
   }

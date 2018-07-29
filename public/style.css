@@ -7,31 +7,47 @@ body {
 #editor {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   background-color: lightgray;
   justify-content: center;
   align-items: center;
-  padding-top: 10vh;
+  padding: 10vh;
 }
 
-#editor textarea {
+#editor #textarea {
   background-color: white;
   width: 60vw;
-  padding: 8vh;
-  height: calc(1.293 * 60vw);
+  height: 80vw;
+  padding: 5vw;
   border: none;
 }
 
-#editor textarea:focus {
+#editor #textarea:focus {
   outline: none;
 }
 
 #editor #toolbar {
   display: flex;
-  background-color: whitesmoke;
+  width: 60vw;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 10px;
-  width: 200px;
-  height: 40px;
+  color: gray;
+}
+
+#editor #save {
+  margin: 10px;
+  height: 30px;
+  width: 60px;
+  border-radius: 5px;
+  background-color: dodgerblue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  outline: none;
+}
+
+#editor #save:active {
+  background-color: royalblue;
 }
