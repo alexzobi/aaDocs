@@ -17,13 +17,14 @@ class Editor extends Component{
 
   componentDidMount(){
     console.log('props', this.props);
-    const doc = this.props.match.params;
+    const {doc} = this.props.match.params;
     // const {content, owners, lastChangeBy} = this.props.docs[doc];
     // this.setState({content, lastChangeBy, owners});
     axios
       .get(`https://aachallengeone.now.sh/read/${doc}`)
       .then( res => res.data)
       .then(data =>{
+        console.log('editor data', data)
         const {content, owners, lastChangeBy} = data;
         const charCount = content.length;
         this.setState({content, lastChangeBy, owners, charCount});
@@ -133,7 +134,7 @@ const mapState = state =>{
 const mapDispatch = (dispatch, ownProps) =>{
   return {
     saveDoc: (content, user)=>{
-      const doc = ownProps.match.params;
+      const {doc} = ownProps.match.params;
       dispatch(updateDoc(doc, content, user));
     }
   };
