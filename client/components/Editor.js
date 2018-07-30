@@ -16,7 +16,6 @@ class Editor extends Component{
   }
 
   componentDidMount(){
-    console.log('props', this.props);
     const {doc} = this.props.match.params;
     // const {content, owners, lastChangeBy} = this.props.docs[doc];
     // this.setState({content, lastChangeBy, owners});
@@ -24,7 +23,6 @@ class Editor extends Component{
       .get(`https://aachallengeone.now.sh/read/${doc}`)
       .then( res => res.data)
       .then(data =>{
-        console.log('editor data', data)
         const {content, owners, lastChangeBy} = data;
         const charCount = content.length;
         this.setState({content, lastChangeBy, owners, charCount});
@@ -107,7 +105,6 @@ class Editor extends Component{
 
   render(){
     const { content, lastSaved } = this.state;
-    console.log('editor state', content);
     return (
       <div id="editor">
         <div id="toolbar">

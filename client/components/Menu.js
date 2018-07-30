@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchDocs, createDoc } from '../store/docs';
+import { MiniFile } from './';
 
 class Menu extends Component{
   constructor(props){
@@ -33,7 +34,7 @@ class Menu extends Component{
     const { newFile, fileName } = this.state;
     return (
       <div id='menu'>
-        <h1>Welcome, {user}</h1>
+        {/* <h1>Welcome, {user}</h1> */}
         <button onClick={()=>this.setState({newFile: !newFile, fileName: ""})}>New Document</button>
         {
           newFile &&
@@ -44,20 +45,17 @@ class Menu extends Component{
             <button disabled={!fileName.length} onClick={this.handleNewFile}>Submit</button>
           </div>
         }
-        <ul>
         {
           docs && 
           Object.keys(docs).map((doc, idx) => {
             return (
-              <li key={idx}>
-                <Link to={`/editor/${doc}`}>
-                  <h3>{doc}</h3>
-                </Link>
-              </li>
+              <MiniFile as={Link} to={`/editor/${doc}`}
+                key={idx}
+                doc={doc}
+                details={docs[doc]} />
             );
           })
         }
-        </ul>
       </div>
     );
   }
