@@ -16,11 +16,12 @@ class Editor extends Component{
   }
 
   componentDidMount(){
-    const {doc} = this.props.match.params;
+    console.log('props', this.props);
+    const doc = this.props.match.params;
     // const {content, owners, lastChangeBy} = this.props.docs[doc];
     // this.setState({content, lastChangeBy, owners});
     axios
-      .get(`https://aachallengeone.now.sh/read/doraemon.doc`)
+      .get(`https://aachallengeone.now.sh/read/${doc}`)
       .then( res => res.data)
       .then(data =>{
         const {content, owners, lastChangeBy} = data;
@@ -105,6 +106,7 @@ class Editor extends Component{
 
   render(){
     const { content, lastSaved } = this.state;
+    console.log('editor state', content);
     return (
       <div id="editor">
         <div id="toolbar">
@@ -131,7 +133,8 @@ const mapState = state =>{
 const mapDispatch = (dispatch, ownProps) =>{
   return {
     saveDoc: (content, user)=>{
-      dispatch(updateDoc('doraemon.doc',content, user));
+      const doc = ownProps.match.params;
+      dispatch(updateDoc(doc, content, user));
     }
   };
 };
