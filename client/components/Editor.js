@@ -27,39 +27,84 @@ class Editor extends Component{
         const charCount = content.length;
         this.setState({content, lastChangeBy, owners, charCount});
       })
-      .catch(err =>console.error(err)); 
+      .catch(err =>console.error(err));
+
+    // custom event listener for changes on text area
     this.refs.textarea.addEventListener('input', this.handleChange);
   }
 
   componentWillUnmount(){
+    // removes event listener to prevent listener overload
     this.refs.textarea.removeEventListener('input', this.handleChange);
   }
 
-
   handleChange = evt =>{
-    evt.preventDefault();
+    let el = document.getElementById("textarea");
+    let range = document.createRange();
+    let sel = window.getSelection();
+
+    // grabbing the html
     const content = evt.target.innerHTML;
-    const charCount = content.length;
+
+    // monitoring character count
+    const charCount = evt.target.innerText.length;
+
+    // setting state with updated info
     this.setState({content, charCount});
-    if(charCount%50===0){
+
+    // automatically saving every n characters
+    let n=50;
+    if(charCount%n===0){
       this.handleSave();
     }
+
+    // the real fun. because we want our users to be able 
+    // to use things like 'bold', 'italics' etc, we want to
+    // use a content editable div. the problem is that with 
+    // a controlled content editable div where the div's value
+    // is equal to local state, the cursor will automatically reset
+    // to the first position of the div after every key press.
+    // to prevent that from happening, we must create a range and 
+    // dynamically adjust it's location and then set the focus on
+    // element to our calculated range. I'm not ashamed to say this
+    // took a while. 
+
+
+    let lastChild=el.lastChild;
+
+    // hitting the enter key inserts a new div. using bold or italics
+    // also creates child nodes. to handle this, we must iterively
+    // check for a last child.
+    while(lastChild.lastChild){
+      lastChild = lastChild.lastChild;
+    }
+    let offset = lastChild.length;
+    range.setStart(lastChild, offset);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    el.focus();
   }
 
   handleSave = () =>{
     const { content } = this.state;
     const { user } = this.props;
-    const regex = new Regex('/[<script>].*[<\/script>]*/','gm');
-    if(content.search(regex)>=0){
-      content = "no hacking please.";
+
+    // checks to make sure there is no attempts at XSS.
+    // normally React automatically prevents this, but
+    // with the 'dangerouslysetinnerhtml' attribute, one
+    // can never be too cautious.
+    const regex = new RegExp('(&lt;script&gt;|&lt;/script&gt;)','gm');
+    if(content.search(regex)<0){
+      this.props.saveDoc(content, user);
+      this.setState({lastSaved: new Date().toLocaleString()});
+    } else {
+      alert("Please don't try to hack my editor");
     }
-    this.props.saveDoc(content, user);
-    this.setState({lastSaved: new Date().toLocaleString()});
   }
 
   render(){
     const { content, lastSaved } = this.state;
-    console.log(content);
     return (
       <div id="editor">
         <div id="toolbar">
