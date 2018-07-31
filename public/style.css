@@ -110,7 +110,6 @@ body {
 /* Login */
 
 #login {
-  padding-top: 10vh;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -125,7 +124,7 @@ body {
   font-size: 1.2em;
   border: none;
   border-radius: 10px;
-  margin: 20px;
+  margin: 10vh 0 20px ;
   text-align: center;
 }
 
@@ -144,17 +143,15 @@ body {
 }
 
 /* Menu */
-#menu {
-  padding-top: 10vh;
-  min-height: 100vh;
-  background: linear-gradient(to bottom right, #5696CC, #0664B2);
-}
 
 #menu {
+  padding: 10vh 0 10vh 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  min-height: 80vh;
+  background: linear-gradient(to bottom right, #5696CC, #0664B2);
 }
 
 #menu #newfile {

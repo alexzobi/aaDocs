@@ -37,7 +37,7 @@ class Menu extends Component{
   }
 
   render(){
-    const { docs, user } = this.props;
+    const { docs } = this.props;
     const { newFile, fileName } = this.state;
     return (
       <div id='menu'>
