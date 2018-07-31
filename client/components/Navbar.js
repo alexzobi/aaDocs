@@ -2,9 +2,11 @@ import React from 'react';
 import history from '../history';
 import { connect } from 'react-redux';
 import { removeUser } from '../store/user';
-import { socket } from '../socket';
 
 const Navbar = props =>{
+  // presentational component with buttons that show
+  // only after user has 'logged in'.
+  
   return (
     <div id="navbar">
       <img src="/images/logo.png" />
@@ -33,7 +35,6 @@ const mapDispatch = (dispatch) =>{
     logout: ()=>{
       dispatch(removeUser());
       history.push('/');
-      socket.close();
     }
   };
 };

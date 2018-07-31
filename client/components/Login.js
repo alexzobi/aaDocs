@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { setUser } from '../store';
-import { createSocket } from '../socket';
 
 // I chose to use a functional component for this to
 // make the user input a controlled input and store the
@@ -45,7 +44,6 @@ const mapDispatch = (dispatch, ownProps) =>{
     handleLogin: (username)=>{
       dispatch(setUser(username));
       ownProps.history.push('/menu');
-      createSocket('wss://aachallengeone.now.sh');
     }
   };
 };

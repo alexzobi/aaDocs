@@ -31,12 +31,10 @@ export const fetchDocs = () => dispatch =>
     .catch(err => console.log(err));
 
 export const updateDoc = (filename, content, issuer) => dispatch =>{
-  console.log('store content', content)
   return axios
     .post(`https://aachallengeone.now.sh/update/${filename}`, {content, issuer})
     .then(res => res.data)
     .then( data => {
-      console.log('update data', data)
       if(data.success){
         // updates store upon post success only.
         // doing it this way prevents the need for an 

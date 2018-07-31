@@ -6,7 +6,7 @@ import store from './store';
 import App from './app';
 import history from './history';
 
-
+// and Alex said, "Let there be editing!"
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

@@ -1,9 +1,18 @@
-/* editor styling */
+/* 
+Much of the code here is redundant and could be greatly reduced
+with proper naming of classes instead of using id's for everything
+but for the sake of the limited time with this project, id's were 
+used more often than not as a quick and easy way of attaching styles
+with predictable results. this is not what I would consider to be 
+a scalable solution.
+*/
 
 body {
   margin: 0;
   font-family:"aktiv-grotesk", sans-serif;
 }
+
+/* editor styling */
 
 #editor {
   display: flex;
@@ -230,5 +239,39 @@ body {
 
 h3, h4, h5 {
   margin: 5px;
+}
+
+/* Notification */
+#notification {
+  position: fixed;
+  top: 60vh;
+  left: 100vw;
+  background-color: rgb(226, 204, 175);
+  width: 200px;
+  overflow-wrap: break-word;
+  z-index: 2;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  transition: .5s;
+}
+
+#notification[data-activated="true"] {
+  transform: translateX(-275px);
+}
+
+#dismiss {
+  height: 30px;
+  width: 60px;
+  background-color: #B22321;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  color: white;
+  margin: 5px;
+}
+
+#dismiss:active {
+  background-color: rgb(124, 22, 20)
 }
 

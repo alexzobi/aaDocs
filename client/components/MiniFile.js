@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const MiniFile = props =>{
+  // presentational component representing the files on the server
 
   const srcObj = {
     'doc':'/images/doc.png',
@@ -10,9 +11,9 @@ const MiniFile = props =>{
   };
 
   const fileType = name =>{
-    const type = name.slice(-3)
+    const type = name.slice(-3);
     return srcObj[type] ? srcObj[type] : srcObj.txt;
-  }
+  };
 
   return (
     <Link to={`/editor/${props.doc}`} className="file">

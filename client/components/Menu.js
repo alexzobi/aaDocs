@@ -10,10 +10,11 @@ class Menu extends Component{
     this.state = {
       newFile: false,
       fileName: ""
-    }
+    };
   }
 
   componentDidMount(){
+    // loads docs from server when component mounts
     this.props.loadDocs();
   }
 
@@ -24,6 +25,7 @@ class Menu extends Component{
   }
 
   handleNewFile = () =>{
+    // dispatches thunk to create new doc.
     const { fileName } = this.state;
     const { user } = this.props;
     this.props.newDoc(fileName,user);

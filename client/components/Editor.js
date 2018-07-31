@@ -41,14 +41,14 @@ class Editor extends Component{
   handleChange = evt =>{
     let el = document.getElementById("textarea");
     let range = document.createRange();
-    let sel = window.getSelection();
-
+    let sel = window.getSelection(); 
+    
     // grabbing the html
     const content = evt.target.innerHTML;
-
+    
     // monitoring character count
     const charCount = evt.target.innerText.length;
-
+    
     // setting state with updated info
     this.setState({content, charCount});
 
@@ -63,11 +63,17 @@ class Editor extends Component{
     // use a content editable div. the problem is that with 
     // a controlled content editable div where the div's value
     // is equal to local state, the cursor will automatically reset
-    // to the first position of the div after every key press.
-    // to prevent that from happening, we must create a range and 
-    // dynamically adjust it's location and then set the focus on
-    // element to our calculated range. I'm not ashamed to say this
-    // took a while. 
+    // to the first position of the div after every key press and
+    // subsequent re-render. to prevent that from happening, we must 
+    // create a range and dynamically adjust it's location and then 
+    // set the focus on element to our calculated range. the issue 
+    // becomes that you cannot tell where the cursor last was, so
+    // if you try to insert in the middle of a doc, the following
+    // code will still send the cursor to the end of the doc after
+    // the re-render. This is a known bug and while i would like
+    // to fix it, time does not permit. there are libraries for
+    // this exact issue, but to keep the project about my skills,
+    // i wanted to try and implement the editor myself.
 
 
     let lastChild=el.lastChild;
@@ -75,6 +81,7 @@ class Editor extends Component{
     // hitting the enter key inserts a new div. using bold or italics
     // also creates child nodes. to handle this, we must iterively
     // check for a last child.
+    
     while(lastChild.lastChild){
       lastChild = lastChild.lastChild;
     }
