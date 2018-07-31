@@ -13,7 +13,7 @@ body {
   background-color: lightgray;
   justify-content: center;
   align-items: center;
-  padding: 10vh;
+  padding: 20vh 0 10vh 0;
 }
 
 #editor #textarea {
@@ -56,10 +56,14 @@ body {
 /* Navbar Styling */
 
 #navbar {
+  position: fixed;
   display: flex;
   align-items: center;
   height: 10vh;
-  border-bottom: 2px solid darkgray;
+  width: 100vw;
+  border-bottom: 3px solid darkgray;
+  z-index: 2;
+  background-color: white;
 }
 
 #navbar img {
@@ -86,7 +90,8 @@ body {
 /* Login */
 
 #login {
-  height: calc(90vh - 2px);
+  padding-top: 10vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,6 +121,8 @@ body {
 
 /* Menu */
 #menu {
+  padding-top: 10vh;
+  min-height: 100vh;
   background: linear-gradient(to bottom right, #5696CC, #0664B2);
 }
 
@@ -126,10 +133,59 @@ body {
   flex-wrap: wrap;
 }
 
-/* Menu Files */
+#menu #newfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  height: 250px;
+  width: 200px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 20px;
+  transition: .3s;
+  color: #0664B2;
+}
+
+#menu #newfile img{
+  width: 120px;
+  margin: 5px;
+}
+
+#new-filename {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#new-filename input{
+  margin: 10px;
+  outline: none;
+  width: 180px;
+  height: 40px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.2em;
+  border: 1px solid lightgray;
+}
+
+#new-filename button{
+  margin: 10px;
+  border: none;
+  background-color: #0664B2;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  color: white;
+}
+
+#new-filename button:disabled {
+  background-color: #5696CC;
+}
+
+/* Mini Files */
 .file {
-  /* display: flex;
-  flex-direction: column; */
   padding: 5px;
   text-align: center;
   overflow-wrap: break-word;
@@ -139,9 +195,19 @@ body {
   border-radius: 10px;
   margin: 20px;
   transition: .3s;
+  color: #0664B2;
+  text-decoration: none;
 }
 
-.file:hover {
+#menu #newfile:hover, .file:hover {
   transform: translateY(-10px);
+}
+
+.file img {
+  width: 120px;
+}
+
+h3, h4, h5 {
+  margin: 5px;
 }
 
