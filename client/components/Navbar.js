@@ -10,9 +10,12 @@ const Navbar = props =>{
       <img src="/images/logo.png" />
       {
         props.user.length &&
-        <div> 
-          <button onClick={()=>history.push('/menu')}>My Docs</button>
-          <button onClick={()=>props.logout()}>Log Out</button> 
+        <div id="nav-items">
+          <div id="nav-buttons"> 
+            <button onClick={()=>history.push('/menu')}>Docs</button>
+            <button onClick={()=>props.logout()}>Log Out</button> 
+          </div>
+          <h2>Hi, {props.user}!</h2>
         </div>
       }
     </div>
