@@ -2,6 +2,7 @@ import React from 'react';
 import history from '../history';
 import { connect } from 'react-redux';
 import { removeUser } from '../store/user';
+import { socket } from '../socket';
 
 const Navbar = props =>{
   return (
@@ -29,6 +30,7 @@ const mapDispatch = (dispatch) =>{
     logout: ()=>{
       dispatch(removeUser());
       history.push('/');
+      socket.close();
     }
   };
 };

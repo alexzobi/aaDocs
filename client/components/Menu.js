@@ -41,8 +41,6 @@ class Menu extends Component{
     const { newFile, fileName } = this.state;
     return (
       <div id='menu'>
-        {/* <h1>Welcome, {user}</h1> */}
-        {/* <button onClick={()=>this.setState({newFile: !newFile, fileName: ""})}>New Document</button> */}
         <div id="newfile"
           onClick={()=>this.handleNewClick()}
           onMouseLeave={()=>this.setState({newFile: false, fileName: ""})}>
@@ -60,15 +58,6 @@ class Menu extends Component{
             </div>
           }
         </div>
-        {/* {
-          newFile &&
-          <div>
-            <input onChange={this.handleNameChange}
-              placeholder="Document Name"
-              value={fileName} />
-            <button disabled={!fileName.length} onClick={this.handleNewFile}>Submit</button>
-          </div>
-        } */}
         {
           docs && 
           Object.keys(docs).map((doc, idx) => {
